@@ -1,33 +1,52 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Lecture } from './lecture.entity';
+
+export interface Lecture {
+  id: number;
+  title: string;
+  description: string;
+  instructor: string;
+  startDate: string;
+  endDate: string;
+  files?: any[];
+}
 
 @Injectable()
 export class LectureService {
-  constructor(
-    @InjectRepository(Lecture)
-    private readonly lectureRepository: Repository<Lecture>,
-  ) {}
+  private lectures: Lecture[] = [];
 
-  findAll() {
-    return this.lectureRepository.find({ relations: ['files'] });
+  findAll(): Lecture[] {
+    return this.lectures;
   }
 
-  findOne(id: number) {
-    return this.lectureRepository.findOne({ where: { id }, relations: ['files'] });
+  findOne(id: number): Lecture | undefined {
+    return this.lectures.find((l) => l.id === id);
   }
 
-  create(data: Partial<Lecture>) {
-    const lecture = this.lectureRepository.create(data);
-    return this.lectureRepository.save(lecture);
+  create(data: Partial<Lecture>): Lecture {
+    const newLecture: Lecture = {
+      id: Date.now(),
+      title: data.title || '',
+      description: data.description || '',
+      instructor: data.instructor || '',
+      startDate: data.startDate || '',
+      endDate: data.endDate || '',
+      files: [],
+    };
+
+    this.lectures.push(newLecture);
+    return newLecture;
   }
 
-  update(id: number, data: Partial<Lecture>) {
-    return this.lectureRepository.update(id, data);
+  update(id: number, data: Partial<Lecture>): Lecture | undefined {
+    const lecture = this.findOne(id);
+    if (!lecture) return;
+    Object.assign(lecture, data);
+    return lecture;
   }
 
-  remove(id: number) {
-    return this.lectureRepository.delete(id);
+  remove(id: number): boolean {
+    const before = this.lectures.length;
+    this.lectures = this.lectures.filter((l) => l.id !== id);
+    return this.lectures.length < before;
   }
-} 
+}

@@ -1,32 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { Lecture } from '../lecture/lecture.entity';
-
-@Entity('files')
-export class FileEntity {
-  @PrimaryGeneratedColumn()
+export interface FileItem {
   id: number;
-
-  @Column({ length: 100 })
   title: string;
-
-  @Column('text')
   description: string;
-
-  @Column()
   filename: string;
-
-  @Column()
   originalName: string;
-
-  @Column('int')
   size: number;
-
-  @Column()
   url: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @ManyToOne(() => Lecture, (lecture) => lecture.files, { nullable: true, onDelete: 'SET NULL' })
-  lecture: Lecture;
-} 
+  createdAt: string; // string으로 저장된 ISO datetime
+  lecture?: {
+    id: number;
+    title: string;
+  }; // lecture는 일부 정보만 포함하거나 전체 Lecture 인터페이스 참조 가능
+}

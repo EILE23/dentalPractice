@@ -1,26 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { FileEntity } from '../file/file.entity';
+import { FileItem } from '../file/file.entity'; // FileEntity도 interface로 바꿔줘야 함
 
-@Entity('lectures')
-export class Lecture {
-  @PrimaryGeneratedColumn()
+export interface Lecture {
   id: number;
-
-  @Column({ length: 100 })
   title: string;
-
-  @Column('text')
   description: string;
-
-  @Column({ length: 50 })
   instructor: string;
-
-  @Column({ type: 'datetime' })
-  startDate: Date;
-
-  @Column({ type: 'datetime' })
-  endDate: Date;
-
-  @OneToMany(() => FileEntity, (file) => file.lecture)
-  files: FileEntity[];
-} 
+  startDate: string; // string으로 통일
+  endDate: string;
+  files: FileItem[];
+}

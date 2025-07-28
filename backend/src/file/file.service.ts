@@ -1,27 +1,35 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { FileEntity } from './file.entity';
 import * as fs from 'fs';
 import * as path from 'path';
 
+export interface FileItem {
+  id: number;
+  title: string;
+  description: string;
+  originalName: string;
+  filename: string;
+  size: number;
+  url: string;
+  createdAt: string;
+}
+
 @Injectable()
 export class FileService {
-  constructor(
-    @InjectRepository(FileEntity)
-    private readonly fileRepository: Repository<FileEntity>,
-  ) {}
+  private files: FileItem[] = [];
 
-  findAll() {
-    return this.fileRepository.find({ relations: ['lecture'] });
+  findAll(): FileItem[] {
+    return this.files;
   }
 
-  findOne(id: number) {
-    return this.fileRepository.findOne({ where: { id }, relations: ['lecture'] });
+  findOne(id: number): FileItem | undefined {
+    return this.files.find((f) => f.id === id);
   }
 
-  async uploadFile(file: any, data: { title: string; description: string; lectureId?: number }) {
-    const uploadDir = './uploads';
+  async uploadFile(
+    file: any,
+    data: { title: string; description: string },
+  ): Promise<FileItem> {
+    const uploadDir = './files';
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
     }
@@ -31,19 +39,24 @@ export class FileService {
 
     fs.writeFileSync(filepath, file.buffer);
 
-    const fileEntity = this.fileRepository.create({
+    const fileEntity: FileItem = {
+      id: Date.now(),
       title: data.title,
       description: data.description,
-      filename: filename,
+      filename,
       originalName: file.originalname,
       size: file.size,
       url: `/files/download/${filename}`,
-    });
+      createdAt: new Date().toISOString(),
+    };
 
-    return this.fileRepository.save(fileEntity);
+    this.files.unshift(fileEntity); // 최신 순으로 추가
+    return fileEntity;
   }
 
-  remove(id: number) {
-    return this.fileRepository.delete(id);
+  remove(id: number): boolean {
+    const before = this.files.length;
+    this.files = this.files.filter((f) => f.id !== id);
+    return this.files.length < before;
   }
-} 
+}
