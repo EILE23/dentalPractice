@@ -22,3 +22,5 @@ coverage/
 
 # 기타
 *.local
+
+/uploads
