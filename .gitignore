@@ -23,4 +23,5 @@ coverage/
 # 기타
 *.local
 
-/uploads
+# 업로드 파일 (추가)
+backend/uploads/
