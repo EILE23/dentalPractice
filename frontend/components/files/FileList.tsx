@@ -34,9 +34,7 @@ export default function FileList() {
   }, []);
 
   const filteredFiles = files.filter((file) =>
-    (file.title + file.description)
-      .toLowerCase()
-      .includes(search.toLowerCase())
+    (file.title + file.description).toLowerCase().includes(search.toLowerCase())
   );
 
   if (loading) return <p>📂 파일 목록 불러오는 중...</p>;
@@ -53,9 +51,7 @@ export default function FileList() {
       {filteredFiles.length === 0 ? (
         <p>🔍 검색 결과가 없습니다.</p>
       ) : (
-        filteredFiles.map((file) => (
-          <FileCard key={file.id} file={file} />
-        ))
+        filteredFiles.map((file) => <FileCard key={file.id} file={file} />)
       )}
     </div>
   );

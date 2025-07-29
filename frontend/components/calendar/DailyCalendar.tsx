@@ -29,7 +29,9 @@ export default function DailyCalendar({ events, onDateClick }: Props) {
   return (
     <div className="max-w-xl mx-auto p-4 mb-10 rounded-lg shadow-md bg-white">
       <div className="flex justify-between mb-4 items-center">
-        <button onClick={() => setCurrentDate(addDays(currentDate, -1))}>←</button>
+        <button onClick={() => setCurrentDate(addDays(currentDate, -1))}>
+          ←
+        </button>
         <h2
           className="text-xl font-bold cursor-pointer"
           onClick={() => onDateClick(dateStr)}
@@ -37,7 +39,9 @@ export default function DailyCalendar({ events, onDateClick }: Props) {
         >
           {format(currentDate, "yyyy.MM.dd (eee)", { locale: ko })}
         </h2>
-        <button onClick={() => setCurrentDate(addDays(currentDate, 1))}>→</button>
+        <button onClick={() => setCurrentDate(addDays(currentDate, 1))}>
+          →
+        </button>
       </div>
 
       {todayEvents.length === 0 ? (

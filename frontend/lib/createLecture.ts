@@ -8,7 +8,7 @@ export interface LectureData {
   startTime: string;
   endTime: string;
   date: string;
-  materialUrl?: string; 
+  materialUrl?: string;
 }
 
 // 시간 형식 유효성 검사 (HH:mm)
@@ -41,7 +41,7 @@ export async function createLecture(data: LectureData) {
   }
 
   try {
-    const res = await instance.post("/lectures", data); 
+    const res = await instance.post("/lectures", data);
     toast.success("강의가 등록되었습니다.");
     return res.data;
   } catch (err) {

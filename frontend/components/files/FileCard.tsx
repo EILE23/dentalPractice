@@ -65,20 +65,18 @@ export default function FileCard({ file }: FileCardProps) {
       <p className="text-sm text-gray-400">
         업로드일: {extractUploadDate(file.filename)}
       </p>
- <div className="mt-3 flex justify-between items-center">
-  <div className="space-x-2">
-    <Button variant="outline" onClick={handleDownload}>
-      다운로드
-    </Button>
-    <Button variant="secondary" onClick={handleCopyLink}>
-      공유 링크 복사
-    </Button>
-  </div>
+      <div className="mt-3 flex justify-between items-center">
+        <div className="space-x-2">
+          <Button variant="outline" onClick={handleDownload}>
+            다운로드
+          </Button>
+          <Button variant="secondary" onClick={handleCopyLink}>
+            공유 링크 복사
+          </Button>
+        </div>
 
-  <Button onClick={handleDelete}>
-    삭제
-  </Button>
-</div>
+        <Button onClick={handleDelete}>삭제</Button>
+      </div>
     </div>
   );
 }

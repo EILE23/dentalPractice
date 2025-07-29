@@ -38,11 +38,15 @@ export default function MonthlyCalendar({ events, onDateClick }: Props) {
 
   const renderHeader = () => (
     <div className="flex items-center justify-between px-4 mb-4">
-      <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>←</button>
+      <button onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}>
+        ←
+      </button>
       <h2 className="text-xl font-bold">
         {format(currentMonth, "yyyy.MM", { locale: ko })}
       </h2>
-      <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>→</button>
+      <button onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}>
+        →
+      </button>
     </div>
   );
 
@@ -113,7 +117,9 @@ export default function MonthlyCalendar({ events, onDateClick }: Props) {
                       className="cursor-pointer p-2 hover:bg-gray-100 rounded"
                     >
                       <div className="font-semibold">{lecture.title}</div>
-                      <div className="text-xs text-gray-500">{lecture.instructor}</div>
+                      <div className="text-xs text-gray-500">
+                        {lecture.instructor}
+                      </div>
                       <div className="text-xs text-gray-400">
                         {lecture.startTime} ~ {lecture.endTime}
                       </div>
@@ -127,7 +133,11 @@ export default function MonthlyCalendar({ events, onDateClick }: Props) {
         day = addDays(day, 1);
       }
 
-      rows.push(<div key={day.toString()} className="grid grid-cols-7">{days}</div>);
+      rows.push(
+        <div key={day.toString()} className="grid grid-cols-7">
+          {days}
+        </div>
+      );
       days = [];
     }
 

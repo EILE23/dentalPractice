@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/router";
-import {
-  format,
-  startOfWeek,
-  addDays,
-  isToday,
-} from "date-fns";
+import { format, startOfWeek, addDays, isToday } from "date-fns";
 import { ko } from "date-fns/locale";
 import { twMerge } from "tailwind-merge";
 
@@ -36,12 +31,16 @@ export default function WeeklyCalendar({ events, onDateClick }: Props) {
   return (
     <div className="max-w-xl mx-auto p-4 mb-10 rounded-lg shadow-md bg-white">
       <div className="flex justify-between mb-4">
-        <button onClick={() => setCurrentDate(addDays(currentDate, -7))}>←</button>
+        <button onClick={() => setCurrentDate(addDays(currentDate, -7))}>
+          ←
+        </button>
         <h2 className="text-xl font-bold">
           {format(weekStart, "yyyy.MM.dd", { locale: ko })} ~{" "}
           {format(addDays(weekStart, 6), "MM.dd", { locale: ko })}
         </h2>
-        <button onClick={() => setCurrentDate(addDays(currentDate, 7))}>→</button>
+        <button onClick={() => setCurrentDate(addDays(currentDate, 7))}>
+          →
+        </button>
       </div>
 
       <div className="grid grid-cols-7 text-center text-gray-600 font-medium pb-2">
@@ -90,7 +89,9 @@ export default function WeeklyCalendar({ events, onDateClick }: Props) {
                         className="cursor-pointer p-2 hover:bg-gray-100 rounded"
                       >
                         <div className="font-semibold">{lecture.title}</div>
-                        <div className="text-xs text-gray-500">{lecture.instructor}</div>
+                        <div className="text-xs text-gray-500">
+                          {lecture.instructor}
+                        </div>
                         <div className="text-xs text-gray-400">
                           {lecture.startTime} ~ {lecture.endTime}
                         </div>

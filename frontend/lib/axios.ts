@@ -15,7 +15,7 @@ instance.interceptors.request.use(
     // if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 // 응답 인터셉터 (에러 로깅 등)
@@ -28,7 +28,7 @@ instance.interceptors.response.use(
       console.error("🔥 Network Error:", error.message);
     }
     return Promise.reject(error);
-  },
+  }
 );
 
 export default instance;
