@@ -60,7 +60,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await instance.get(`/lectures/${id}`);
     const lecture = res.data;
 
-    console.log(lecture, "res");
     return {
       props: lecture,
     };

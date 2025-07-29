@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import instance from "@/lib/axios";
 import FileCard from "./FileCard";
-import { Input } from "@/components/ui/input"; // 🔍 검색 입력용
-
+import { Input } from "@/components/ui/input";
 interface FileItem {
   id: number;
   filename: string;
@@ -17,7 +16,7 @@ interface FileItem {
 export default function FileList() {
   const [files, setFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState(""); // 🔍 검색어 상태
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     instance

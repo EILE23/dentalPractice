@@ -31,8 +31,8 @@ export default function FileDetailPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p>🔄 불러오는 중...</p>;
-  if (!file) return <p>❌ 파일을 찾을 수 없습니다.</p>;
+  if (loading) return <p> 불러오는 중...</p>;
+  if (!file) return <p> 파일을 찾을 수 없습니다.</p>;
 
   return (
     <main className="max-w-3xl mx-auto p-6">

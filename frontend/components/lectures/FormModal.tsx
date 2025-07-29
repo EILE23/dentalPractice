@@ -25,7 +25,7 @@ export default function FormModal({ date, isOpen, onClose, onSubmit }: Props) {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [materialUrl, setMaterialUrl] = useState("");
-  const [description, setDescription] = useState(""); // ✅ 추가
+  const [description, setDescription] = useState("");
 
   const handleSubmit = () => {
     if (!title || !instructor || !startTime || !endTime || !description) {
