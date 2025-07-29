@@ -8,7 +8,7 @@ interface LectureDetailProps {
   id: number;
   title: string;
   instructor: string;
-  content: string;
+  description: string;
   startTime: string;
   endTime: string;
   materialUrl?: string;
@@ -17,10 +17,9 @@ interface LectureDetailProps {
 export default function LectureDetail({
   id,
   title,
-  instructor,
+  instructor,description,
   startTime,
   endTime,
-  content,
   materialUrl,
 }: LectureDetailProps) {
   return (
@@ -31,7 +30,7 @@ export default function LectureDetail({
         <p className="text-gray-600 mb-2">시간: {startTime} ~ {endTime}</p>
         <p className="text-gray-600 mb-2">강사: {instructor}</p>
         <br />
-        <div className="text-gray-800 mb-6 whitespace-pre-wrap">{content}</div>
+        <div className="text-gray-800 mb-6 whitespace-pre-wrap">{description}</div>
 
         {materialUrl && (
           <a
@@ -40,7 +39,7 @@ export default function LectureDetail({
             target="_blank"
             rel="noopener noreferrer"
           >
-            📁 첨부자료 다운로드
+            첨부자료 다운로드
           </a>
         )}
       </main>
@@ -56,6 +55,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const res = await instance.get(`/lectures/${id}`);
     const lecture = res.data;
 
+    console.log(lecture, "res")
     return {
       props: lecture,
     };

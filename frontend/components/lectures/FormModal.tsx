@@ -14,7 +14,8 @@ interface Props {
     instructor: string;
     startTime: string;
     endTime: string;
-    materialUrl?: string; 
+    materialUrl?: string;
+    description: string;
   }) => void;
 }
 
@@ -23,10 +24,11 @@ export default function FormModal({ date, isOpen, onClose, onSubmit }: Props) {
   const [instructor, setInstructor] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
-  const [materialUrl, setMaterialUrl] = useState(""); 
+  const [materialUrl, setMaterialUrl] = useState("");
+  const [description, setDescription] = useState(""); // ✅ 추가
 
   const handleSubmit = () => {
-    if (!title || !instructor || !startTime || !endTime) {
+    if (!title || !instructor || !startTime || !endTime || !description) {
       toast.error("모든 항목을 입력해주세요.");
       return;
     }
@@ -36,14 +38,17 @@ export default function FormModal({ date, isOpen, onClose, onSubmit }: Props) {
       instructor,
       startTime,
       endTime,
-      materialUrl: materialUrl || undefined, 
+      materialUrl: materialUrl || undefined,
+      description,
     });
-    
+
+    // 초기화
     setTitle("");
     setInstructor("");
     setStartTime("");
     setEndTime("");
     setMaterialUrl("");
+    setDescription("");
 
     onClose();
   };
@@ -58,7 +63,8 @@ export default function FormModal({ date, isOpen, onClose, onSubmit }: Props) {
           <input className="input mb-2" placeholder="강사명" value={instructor} onChange={e => setInstructor(e.target.value)} />
           <input className="input mb-2" placeholder="시작 시간 (예: 14:00)" value={startTime} onChange={e => setStartTime(e.target.value)} />
           <input className="input mb-2" placeholder="종료 시간 (예: 16:00)" value={endTime} onChange={e => setEndTime(e.target.value)} />
-          <input className="input mb-4" placeholder="첨부자료 링크 (선택)" value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} />
+          <input className="input mb-2" placeholder="첨부자료 링크 (선택)" value={materialUrl} onChange={e => setMaterialUrl(e.target.value)} />
+          <textarea className="input mb-4 w-full h-24 resize-none" placeholder="강의 설명" value={description} onChange={e => setDescription(e.target.value)} />
 
           <div className="flex justify-end space-x-2">
             <Button variant="outline" onClick={onClose}>취소</Button>

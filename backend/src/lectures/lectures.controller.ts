@@ -4,6 +4,7 @@ interface CreateLectureDto {
   date: string;
   title: string;
   instructor: string;
+  description:string;
   startTime: string;
   endTime: string;
 }
