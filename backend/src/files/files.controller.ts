@@ -90,10 +90,6 @@ serveFile(@Param('filename') filename: string, @Res() res: Response) {
   const decoded = decodeURIComponent(filename);
   const filePath = path.join(process.cwd(), 'uploads', decoded);
 
-  console.log("요청된 파일 이름:", decoded);
-  console.log("절대 경로:", filePath);
-  console.log("존재 여부:", fs.existsSync(filePath));
-
   if (fs.existsSync(filePath)) {
     return res.download(filePath);
   }
