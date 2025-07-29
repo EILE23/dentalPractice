@@ -10,15 +10,16 @@ interface Lecture {
   date: string; // yyyy-MM-dd
   title: string;
   instructor: string;
-    startTime: string;     // HH:mm
-  endTime: string;  
+  startTime: string; // HH:mm
+  endTime: string;
 }
 
 interface Props {
   events: Lecture[];
+  onDateClick: (date: string) => void;
 }
 
-export default function DailyCalendar({ events }: Props) {
+export default function DailyCalendar({ events, onDateClick }: Props) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const router = useRouter();
 
@@ -27,9 +28,13 @@ export default function DailyCalendar({ events }: Props) {
 
   return (
     <div className="max-w-xl mx-auto p-4 mb-10 rounded-lg shadow-md bg-white">
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 items-center">
         <button onClick={() => setCurrentDate(addDays(currentDate, -1))}>←</button>
-        <h2 className="text-xl font-bold">
+        <h2
+          className="text-xl font-bold cursor-pointer"
+          onClick={() => onDateClick(dateStr)}
+          title="날짜를 클릭하면 강의를 등록할 수 있어요"
+        >
           {format(currentDate, "yyyy.MM.dd (eee)", { locale: ko })}
         </h2>
         <button onClick={() => setCurrentDate(addDays(currentDate, 1))}>→</button>
@@ -46,10 +51,10 @@ export default function DailyCalendar({ events }: Props) {
               className="cursor-pointer p-4 border rounded hover:bg-gray-100"
             >
               <div className="font-bold text-lg">{lecture.title}</div>
-<div className="text-sm text-gray-600">{lecture.instructor}</div>
-<div className="text-xs text-gray-500">
-  {lecture.startTime} ~ {lecture.endTime}
-</div>
+              <div className="text-sm text-gray-600">{lecture.instructor}</div>
+              <div className="text-xs text-gray-500">
+                {lecture.startTime} ~ {lecture.endTime}
+              </div>
             </div>
           ))}
         </div>

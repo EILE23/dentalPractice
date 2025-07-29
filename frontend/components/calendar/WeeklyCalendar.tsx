@@ -6,7 +6,6 @@ import {
   format,
   startOfWeek,
   addDays,
-  isSameDay,
   isToday,
 } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -17,15 +16,16 @@ interface Lecture {
   date: string; // yyyy-MM-dd
   title: string;
   instructor: string;
-    startTime: string;     // HH:mm
-  endTime: string;  
+  startTime: string;
+  endTime: string;
 }
 
 interface Props {
   events: Lecture[];
+  onDateClick: (date: string) => void;
 }
 
-export default function WeeklyCalendar({ events }: Props) {
+export default function WeeklyCalendar({ events, onDateClick }: Props) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
   const router = useRouter();
@@ -66,6 +66,7 @@ export default function WeeklyCalendar({ events }: Props) {
               )}
               onMouseEnter={() => setHoveredDate(dateStr)}
               onMouseLeave={() => setHoveredDate(null)}
+              onClick={() => onDateClick(dateStr)}
             >
               {format(day, "d")}
               {hasEvent && (
@@ -82,14 +83,17 @@ export default function WeeklyCalendar({ events }: Props) {
                     .map((lecture) => (
                       <div
                         key={lecture.id}
-                        onClick={() => router.push(`/lectures/${lecture.id}`)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push(`/lectures/${lecture.id}`);
+                        }}
                         className="cursor-pointer p-2 hover:bg-gray-100 rounded"
                       >
                         <div className="font-semibold">{lecture.title}</div>
-<div className="text-xs text-gray-500">{lecture.instructor}</div>
-<div className="text-xs text-gray-400">
-  {lecture.startTime} ~ {lecture.endTime}
-</div>
+                        <div className="text-xs text-gray-500">{lecture.instructor}</div>
+                        <div className="text-xs text-gray-400">
+                          {lecture.startTime} ~ {lecture.endTime}
+                        </div>
                       </div>
                     ))}
                 </div>
