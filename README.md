@@ -15,3 +15,7 @@
 
 
 ![localhost_3000-Chrome-2025-07-29-22-47-57](https://github.com/user-attachments/assets/1a774dbf-bf26-4139-8063-7fca58bb36fa)
+
+
+**노션 링크**
+[Notion](https://www.notion.so/23ed17da2e6180a99412eb94531e43ab)
